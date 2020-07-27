@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block body_content %}
+    <a href="{{ url_for('about') }}">About Page</a>
+
+    {% for post in posts %}
+        <div>
+            <h3>{{ post.title }}</h3>
+            <p><b> - First name:</b>{{ post.first_name }}</p>
+            <p><b> - Last name:</b>{{ post.last_name }}</p>
+            <p> -- {{ post.content }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
