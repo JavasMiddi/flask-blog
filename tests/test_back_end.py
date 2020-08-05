@@ -65,32 +65,14 @@ class TestPosts(TestBase):
         Test that when I add a new post, I am redirected to the homepage with the new post visible
         """
         with self.client:
-            self.client.post(url_for('login'), 
-                    data=dict(email="admin@admin.com", password="admin2016"), follow_redirects=True)
-            response = self.client.post(url_for('post'),
-                    data=dict(
-                        title="Test Title",
-                        content="Test Content"),
+            self.client.post(url_for('login'), data=dict(email="admin@admin.com", password="admin2016"), 
                     follow_redirects=True)
+            response = self.client.post(
+                url_for('post'),
+                data=dict(
+                    title="Test Title",
+                    content="Test Content"
+                ),
+                follow_redirects=True
+            )
             self.assertIn(b'Test Title', response.data)
-
-    def test_navbar_redirect(self):
-        """
-        Test that when I add a click a page in the navbar, I am redirected correct page
-        """
-        with self.client:
-            self.client.post(url_for('login'),
-                    data=dict(email="admin@admin.com", password="admin2016"), follow_redirects=True)
-            response = self.client.post(url_for('post'),
-                    follow_redirects=True)
-            response = self.client.post(url_for('logout'),
-                    follow_redirects=True)
-        with self.client:
-            response = self.client.post(url_for('home'),
-                    follow_redirects=True)
-            response = self.client.post(url_for('about'),
-                    follow_redirects=True)
-            response = self.client.post(url_for('login'),
-                    follow_redirects=True)
-            response = self.client.post(url_for('register'),
-                    follow_redirects=True)
